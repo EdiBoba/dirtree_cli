@@ -22,7 +22,7 @@ class CommandDispatcher:
             'create': self._cwd.make_dir,
             'list': self._cwd.to_string,
             'move': self._cwd.move_component,
-            'delete': self._cwd.delete_component,
+            'delete': self._cwd.delete_dir,
             'rename': self._cwd.rename_component,
             'exec': self.execute_from_file
         }
@@ -42,7 +42,11 @@ class CommandDispatcher:
         func = self._commands.get(command)
         if not func:
             raise UnknownCommandError(command)
-        return func(*arguments)
+        try:
+            return func(*arguments)
+        except TypeError:
+            raise TypeError(f"Can't execute command {command} "
+                            f"with arguments {arguments}")
 
     def execute_from_file(self, file_name: str) -> None:
         """
@@ -58,7 +62,7 @@ class CommandDispatcher:
     @staticmethod
     def get_help() -> str:
         """
-        :return: help string for commands
+        :return: prints help string for commands
         :rtype: str
         """
         return """\
