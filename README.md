@@ -1,8 +1,7 @@
 # DirTree CRUD CLI client
 
 ![Python version](https://img.shields.io/badge/Python-3.6--3.9-blue)
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/ediboba/dirtree_cli)
-![GitHub](https://img.shields.io/github/license/ediboba/dirtree_cli)
+
 
 Cli-client that provides work with folders like a REST api
 
@@ -11,6 +10,17 @@ Cli-client that provides work with folders like a REST api
 * Provides simple API
 * Easy to use
 * OS independent
+
+## How it works
+
+* dir_composite imitate work with file system without side effects like create directories
+* command_dispatcher translates commands to directory functions
+
+Other ways to solve this task:
+
+* production way: command dispatcher translate commands to pathlib and os functions (work with real file system)
+* non-production way without side effects: create a TemporaryDirectory (from tempfile module), 
+this directory to execute pathlib and os functions, after close program created temporary directory and all its contents are removed from the filesystem
 
 ## Requirements
 
