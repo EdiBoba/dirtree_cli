@@ -149,8 +149,5 @@ class Directory(FileSystemComponent):
         if to_path_parts[-1] not in to_dir_dict:
             raise NotExistError('move', to_path, to_path_parts[-1])
 
-        if from_path_parts[-1] in to_dir_dict:
-            raise ExistError('move', to_path, from_path_parts[-1])
-
         value = from_dir_dict.pop(from_path_parts[-1])
         to_dir_dict[to_path_parts[-1]]._child[value._name] = value

@@ -1,6 +1,7 @@
 # DirTree CRUD CLI client
 
 ![Python version](https://img.shields.io/badge/Python-3.6--3.9-blue)
+![Coverage](https://img.shields.io/badge/Coverage-92%25-brightgreen)
 
 
 Cli-client that provides work with folders like a REST api
