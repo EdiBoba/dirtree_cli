@@ -10,6 +10,11 @@ def test_unknown_command(command_dp):
         command_dp.execute('NOTACOMMAND')
 
 
+def test_command_with_wrong_args(command_dp):
+    with pytest.raises(TypeError):
+        command_dp.execute('LIST no way')
+
+
 def test_execute_from_file(command_dp):
     file_path = pathlib.Path(__file__).parent.parent / 'commands.txt'
     command_dp.execute(f"EXEC {file_path}")
