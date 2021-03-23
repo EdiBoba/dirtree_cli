@@ -1,3 +1,5 @@
+from typing import Optional
+
 from ..dir_composite import Directory
 from .exceptions import UnknownCommandError
 
@@ -21,13 +23,13 @@ class CommandDispatcher:
             'help': self.get_help,
             'create': self._cwd.make_dir,
             'list': self._cwd.to_string,
-            'move': self._cwd.move_component,
+            'move': self._cwd.move_dir,
             'delete': self._cwd.delete_dir,
-            'rename': self._cwd.rename_component,
+            'rename': self._cwd.rename_dir,
             'exec': self.execute_from_file
         }
 
-    def execute(self, command: str) -> None:
+    def execute(self, command: str) -> Optional[str]:
         """
         Executes a single command.
 
@@ -50,14 +52,19 @@ class CommandDispatcher:
 
     def execute_from_file(self, file_name: str) -> None:
         """
-        Executes all commands from file until the first error or EOF.
+        Executes all commands from file.
 
         :param file_name: file to read commands
         :return: None if command is completed
         """
         with open(file_name) as file:
             for command in file:
-                self.execute(command)
+                try:
+                    result = self.execute(command)
+                    if result:
+                        print(result)
+                except Exception as exc:
+                    print(exc)
 
     @staticmethod
     def get_help() -> str:
